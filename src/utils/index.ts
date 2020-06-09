@@ -36,6 +36,7 @@ export const getLocationFromStorage = () => sessionStorage.getItem('location');
 const defaultHeaders = {
 	'X-Request-With': 'XMLHttpRequest'
 };
+
 const buildURL = (endpoint: string, pattern: string = '', data: Object = {}) => {
 	// build the url out of the pattern and the data structure sent
 	let stub = tmpl(pattern, data).replace(/\/+$/, '');
@@ -59,14 +60,13 @@ export const executeRequest = (
 	const updatedHeaders = Object.assign({}, defaultHeaders, config.headers);
 	console.log({ updatedHeaders, defaultHeaders, config });
 
+	// Create Axios Config
+	axios.create(config);
+
 	// Add Headers to Config Object
 	config['headers'] = updatedHeaders;
 	return axios.request(config);
 };
-
-// https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=mongolian%20grill&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,rating&locationbias=circle:2000@47.6918452,-122.2226413&key=YOUR_API_KEY
-
-// https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU
 
 // Text search with location bias
 // https://maps.googleapis.com/maps/api/place/textsearch/json?query=123+madina+street&location=5.6364025,-0.1670703&radius=1000&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU
@@ -76,3 +76,11 @@ export const executeRequest = (
 
 // EXAMPLE PLACES DETAIL WITH PASSION CLINIC
 // https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJEwXhYMyc3w8RCFFRbD4ND0g&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU
+
+// NileHouse Detail
+// https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJITmYSE2d3w8Rj1GD80LpLuU&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU
+
+/**
+ * PLACES AUTOCOMPLETE RESULT SEARCHING
+ * https://maps.googleapis.com/maps/api/place/autocomplete/json?input=nile&types=establishment&location=5.6364025,-0.1670703&strictbounds&radius=50000&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU
+ */

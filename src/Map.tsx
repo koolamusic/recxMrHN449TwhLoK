@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from "react";
-import { Map, GoogleApiWrapper, Marker, IProvidedProps, IMapProps } from "google-maps-react";
+import React, { Component } from "react";
+import { Map, GoogleApiWrapper, IProvidedProps, IMapProps } from "google-maps-react";
 
 interface IMapWrapper extends IMapProps {
     google: IProvidedProps,
@@ -40,14 +40,13 @@ class MapWrapper extends Component<IMapProps | IMapWrapper> {
         return (
             <Map
                 google={this.props.google}
-                zoom={14}
-                // initialCenter={{ lat: latitude, lng: longitude }}
+                // zoom={14}
+                initialCenter={{ lat: "", lng: "" }}
                 onReady={(mapProps: any, map) => this.fetchPlaces(mapProps, map)}>
             </Map>
         );
     };
 };
-
 
 
 

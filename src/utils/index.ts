@@ -84,3 +84,12 @@ export const executeRequest = (
  * PLACES AUTOCOMPLETE RESULT SEARCHING
  * https://maps.googleapis.com/maps/api/place/autocomplete/json?input=nile&types=establishment&location=5.6364025,-0.1670703&strictbounds&radius=50000&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU
  */
+
+const baseURL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=5.6364025,-0.1670703&radius=10000&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU`;
+
+const defaultConfig = {
+	baseURL: baseURL,
+	headers: {
+		'X-Request-With': 'XMLHttpRequest'
+	}
+};

@@ -8,19 +8,21 @@
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.3.2",
 		"@testing-library/user-event": "^7.1.2",
+		"@types/googlemaps": "^3.39.6",
 		"@types/jest": "^24.0.0",
 		"@types/node": "^12.0.0",
-		"@types/qs": "^6.9.3",
 		"@types/react": "^16.9.0",
 		"@types/react-dom": "^16.9.0",
 		"agentkeepalive": "^4.1.2",
 		"antd": "^4.3.3",
 		"axios": "^0.19.2",
 		"craco-less": "^1.17.0",
+		"http-proxy-middleware": "^1.0.4",
 		"qs": "^6.9.4",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-scripts": "3.4.1",
+		"request": "^2.88.2",
 		"string-template": "^1.0.0",
 		"typescript": "~3.7.2"
 	},
@@ -47,7 +49,8 @@
 	},
 	"devDependencies": {
 		"@types/axios": "^0.14.0",
-		"@types/google-map-react": "^1.1.8",
+		"@types/qs": "^6.9.3",
+		"@types/request": "^2.48.5",
 		"@types/string-template": "^1.0.2"
 	}
 }

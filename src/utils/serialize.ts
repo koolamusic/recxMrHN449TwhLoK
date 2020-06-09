@@ -41,16 +41,6 @@ export function latLngToString(o: LatLng) {
 		.join(',');
 }
 
-export function objectToString(o: string | object): string {
-	if (typeof o === 'string') {
-		return o;
-	} else {
-		let keys = Object.keys(o);
-		keys.sort();
-		return keys.map((k) => k + ':' + o[k]).join(separator);
-	}
-}
-
 export function latLngBoundsToString(latLngBounds: string | LatLngBounds) {
 	if (typeof latLngBounds === 'string') {
 		return latLngBounds;
@@ -90,7 +80,7 @@ export function latLngArrayToStringMaybeEncoded(o: string | LatLng[]): string {
 	return concatenated;
 }
 
-export type serializerFunction = (any) => string | number | boolean;
+export type serializerFunction = (arg0: any) => string | number | boolean;
 export type serializerFormat = { [key: string]: serializerFunction };
 
 export function serializer(

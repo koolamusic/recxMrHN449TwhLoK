@@ -1,10 +1,10 @@
-### Overview
+# Overview
 
 In this COVID world that we live in, it is important that people can easily access medical assistance if need be. With that in mind, the goal of this challenge is to build an application that can locate all the hospitals within a given area.
 
 **Please read through this document carefully.**
 
-### Technologies
+## Technologies
 
 These following technologies must be used when building this application
 
@@ -47,4 +47,29 @@ You will have **4 days**, from the day you applied to submit this challenge
 - There are no extensions to the submission deadline. Failure to submit your application within that given timeframe will disqualify you from moving forward.
 - If you are unable to leverage the Google Map API for verification reason, you are allowed to leverage any third location API
 
+```js
 
+  // fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=5.6364025,-0.1670703&radius=10000&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU`, {
+  //   mode: 'no-cors',
+  //   credentials: 'include', // send cookies
+  //   headers: {
+  //     // 'Accept': 'application/json',
+  //     'Accept': 'application/x-www-form-urlencoded',
+  //     "Access-Control-Allow-Origin": "*",
+  //   }
+  // })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     console.log(data)
+  //   })
+  //   .catch(err => console.error(err))
+
+    // console.log(placesNearby({ params: { location: { lat: 5.6364025, lng: -0.1670703 }, radius: 10000, type: 'hospital' } }))
+
+  request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=5.6364025,-0.1670703&radius=10000&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU', function (error, response, body) {
+    console.error('error:', error); // Print the error if one occurred
+    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    console.log('body:', body); // Print the HTML for the Google homepage.
+  });
+
+```

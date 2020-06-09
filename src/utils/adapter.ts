@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-// import * as settle from 'axios/lib/core/settle';
-// import * as defaults from 'axios/lib/defaults';
-// import * as transformData from 'axios/lib/core/transformData';
 import { Status } from './common';
-import { AxiosRequestConfig, AxiosResponse, AxiosPromise } from 'axios';
 
-export function statusToCode(status: Status): number {
+function statusToCode(status: Status): number {
 	switch (status) {
 		case Status.OK:
 		case Status.ZERO_RESULTS: {
@@ -49,18 +45,3 @@ export function statusToCode(status: Status): number {
 		}
 	}
 }
-
-export const customAdapter = (config: AxiosRequestConfig): AxiosPromise<any> =>
-	new Promise((resolve, reject) => {
-		defaults
-			.adapter(config)
-			.then((r: AxiosResponse) => {
-				// unfortunately data is transformed after the adapter
-				r.data = transformData(r.data, r.headers, config.transformResponse);
-				if (r.status === 200 && r.data.status) {
-					r.status = statusToCode(r.data.status);
-				}
-				settle(resolve, reject, r);
-			})
-			.catch(reject);
-	});

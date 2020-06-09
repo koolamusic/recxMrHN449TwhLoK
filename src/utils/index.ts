@@ -87,7 +87,7 @@ export const executeRequest = (
 
 const baseURL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=5.6364025,-0.1670703&radius=10000&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU`;
 
-const defaultConfig = {
+export const defaultConfig = {
 	baseURL: baseURL,
 	headers: {
 		'X-Request-With': 'XMLHttpRequest'

@@ -1,29 +1,35 @@
 import React, { useEffect } from 'react';
-import { DatePicker } from 'antd'
+import { Input, } from 'antd'
+import { SearchOutlined } from '@ant-design/icons';
+
+import Map from './Map'
 import './App.less'
-import { getCurrentLocation } from './utils'
+import { getCurrentLocation, getLocationFromStorage } from './utils'
 
 
 function App(): JSX.Element {
-  const userLocation: string | null = sessionStorage.getItem('location');
-
+  // const savedLocation: string | null = getLocationFromStorage()
 
   // get users current location
-  useEffect(() => {
-    getCurrentLocation()
-    return () => {
-    }
-  }, [userLocation])
+  // useEffect(() => {
+  //   getCurrentLocation()
+  //   return () => {
+  //   }
+  // }, [savedLocation])
 
 
   return (
-    <div className="App">
+    <main>
       <div className="App">
-        <h1>antd version</h1>
-        <DatePicker />
-      </div>,
-    </div>
+        <h1>Find a Hospital</h1>
+        <Input placeholder="large size" prefix={<SearchOutlined />} />
+      </div>
+      <Map />
+
+    </main>
   );
 }
 
 export default App;
+
+

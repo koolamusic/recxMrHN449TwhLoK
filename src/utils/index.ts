@@ -27,3 +27,5 @@ export const getCurrentLocation = () => {
 		}
 	});
 };
+
+export const getLocationFromStorage = () => sessionStorage.getItem('location');

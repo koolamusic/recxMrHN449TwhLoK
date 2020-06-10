@@ -19,7 +19,7 @@ export const getCurrentLocation = () => {
 					}
 					resolve({ lat, lng });
 					sessionStorage.setItem('location', JSON.stringify({ lat, lng }));
-					console.log(lat, lng, 'FULL OBJ WITH POSITION', { position });
+					console.log(lat, lng, '/utils/index L22 - FULL OBJ WITH POSITION', { position });
 				},
 				//error callback
 				(error) => (error ? alert(error.message) : reject('Unable to get device location'))

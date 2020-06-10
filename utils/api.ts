@@ -1,3 +1,7 @@
+/**
+ * Manage connection to the API: aka axios: https://github.com/axios/axios/blob/b03f16159eac889baba067ff1e53e8701c86728e/index.d.ts
+ */
+
 import { HttpsAgent } from 'agentkeepalive';
 import axios, { AxiosInstance, Method, AxiosRequestConfig } from 'axios';
 import tmpl from 'string-template';

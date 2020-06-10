@@ -1,34 +1,42 @@
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+// import Link from 'next/link'
+import { Layout } from 'antd'
+import('antd/lib/menu/style/index')
+import { Menu } from 'antd'
 
 import {
   SmileOutlined,
   SettingOutlined,
   PlaySquareOutlined,
 } from '@ant-design/icons'
-
 import { Route, MenuDataItem } from '@ant-design/pro-layout/lib/typings'
-import { SiderMenuProps } from '@ant-design/pro-layout/lib/SiderMenu/SiderMenu'
 
-const ProLayout = dynamic(() => import('@ant-design/pro-layout'), {
-  ssr: false,
-})
+// const MenuItem = dynamic(() => import('antd/lib/menu/MenuItem'))
+const MenuItem = Menu.Item
+const { Header, Content } = Layout;
+
 
 const ROUTES: Route = {
   path: '/',
   routes: [
     {
       path: '/',
-      name: 'Welcome',
-      icon: <SmileOutlined />,
-      routes: [
+      name: 'Home',
+      icon: <SmileOutlined />
+    },
         {
           path: '/welcome',
-          name: 'Account Settings',
+          name: 'Welcome',
           icon: <SettingOutlined />,
         },
-      ],
-    },
+        {
+          path: '/antd',
+          name: 'Ant',
+          icon: <SettingOutlined />,
+        },
+    
+    
     {
       path: '/example',
       name: 'Example Page',
@@ -37,34 +45,32 @@ const ROUTES: Route = {
   ],
 }
 
-const menuHeaderRender = (
-  logoDom: React.ReactNode,
-  titleDom: React.ReactNode,
-  props: SiderMenuProps
-) => (
-  <Link href="/">
-    <a>
-      {logoDom}
-      {!props?.collapsed && titleDom}
-    </a>
-  </Link>
-)
+const menuItemRender = () => (
+    ROUTES.routes.map((rt, idx) => {
+      return (
+        <MenuItem key={rt.path}>
+        <Link href={rt.path}>
+        <a>{rt.name}</a>
+        </Link>
+        </MenuItem>
 
-const menuItemRender = (options: MenuDataItem, element: React.ReactNode) => (
-  <Link href={options.path}>
-    <a>{element}</a>
-  </Link>
+      )
+    })
+  
 )
 
 export default function Main({ children }) {
   return (
-    <ProLayout
-      style={{ minHeight: '100vh' }}
-      route={ROUTES}
-      menuItemRender={menuItemRender}
-      menuHeaderRender={menuHeaderRender}
+    <Header
     >
-      {children}
-    </ProLayout>
+      <div className="logo" />
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+        {menuItemRender()}
+      </Menu>
+
+      <Content>
+        {children}
+      </Content>
+    </Header>
   )
 }

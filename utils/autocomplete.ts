@@ -161,7 +161,7 @@ export const defaultParamsSerializer = serializer({
 	location: latLngToString
 });
 
-export const defaultUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+export const defaultUrl = 'http://localhost/api/search';
 
 export function placeAutocomplete(
 	{

@@ -25,7 +25,7 @@ import {
 	StructuredFormatting
 } from './common';
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { defaultAxiosInstance } from './api';
+import { defaultAxiosInstance } from './instance';
 import { serializer, latLngToString } from './serialize';
 
 export interface PlaceQueryAutocompleteRequest extends Partial<AxiosRequestConfig> {

@@ -18,7 +18,7 @@ import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Language, LatLng, Place, RequestParams, ResponseData } from './common';
 import { latLngToString, serializer } from './serialize';
 
-import { defaultAxiosInstance } from './api';
+import { defaultAxiosInstance } from './instance';
 // import { createProxyMiddleware } from 'http-proxy-middleware';
 
 /**

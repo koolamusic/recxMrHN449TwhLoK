@@ -17,7 +17,7 @@
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Language, Place, RequestParams, ResponseData } from './common';
 
-import { defaultAxiosInstance } from './api';
+import { defaultAxiosInstance } from './instance';
 import { serializer } from './serialize';
 
 export interface PlaceDetailsRequest extends Partial<AxiosRequestConfig> {

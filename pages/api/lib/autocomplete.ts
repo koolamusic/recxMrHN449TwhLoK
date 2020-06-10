@@ -26,7 +26,7 @@ import {
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { latLngToString, serializer } from './serialize';
 
-import { defaultAxiosInstance } from './api';
+import { defaultAxiosInstance } from './instance';
 
 export enum PlaceAutocompleteType {
 	/**

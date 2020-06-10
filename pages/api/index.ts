@@ -1,10 +1,30 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import Cors from 'cors';
 
 import { Client, Status } from '@googlemaps/google-maps-services-js';
-import { resolve } from 'dns';
 const client = new Client({});
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
+// Initializing the cors middleware
+const cors = Cors({
+	methods: [ 'GET', 'HEAD' ]
+});
+
+// Helper method to wait for a middleware to execute before continuing
+// And to throw an error when an error happens in a middleware
+function runMiddleware(req, res, fn) {
+	return new Promise((resolve, reject) => {
+		fn(req, res, (result) => {
+			if (result instanceof Error) {
+				return reject(result);
+			}
+
+			return resolve(result);
+		});
+	});
+}
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+	await runMiddleware(req, res, cors);
 	return new Promise((resolve, reject) => {
 		client
 			.placesNearby({
@@ -18,10 +38,10 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 			})
 			.then(async (r) => {
 				if (r.data.status === Status.OK) {
-					res.statusCode = 200;
 					res.setHeader('Content-Type', 'application/json');
 					res.setHeader('Cache-Control', 'max-age=180000');
-					await res.json(r.data.results);
+					res.setHeader('Access-Control-Allow-Origin', '*');
+					await res.status(200).json(r.data.results);
 					resolve();
 				} else {
 					res.json(r.data.error_message);

@@ -1,6 +1,3 @@
-import tmpl from 'string-template';
-import axios, { AxiosRequestConfig, Method } from 'axios';
-
 interface IPosition {
 	coords: {
 		latitude: number;
@@ -33,41 +30,6 @@ export const getCurrentLocation = () => {
 
 export const getLocationFromStorage = () => sessionStorage.getItem('location');
 
-const defaultHeaders = {
-	'X-Request-With': 'XMLHttpRequest'
-};
-
-const buildURL = (endpoint: string, pattern: string = '', data: Object = {}) => {
-	// build the url out of the pattern and the data structure sent
-	let stub = tmpl(pattern, data).replace(/\/+$/, '');
-	return [ endpoint, stub ].join('/').replace(/\/+$/, '');
-};
-
-export const executeRequest = (
-	endpoint: string,
-	data: any = {},
-	pattern: string = '',
-	method: Method = 'GET',
-	ctx: AxiosRequestConfig = {}
-) => {
-	// build and execute a request based on url pattern and method sent
-	let url = buildURL(endpoint, pattern, data);
-	let config: any = { method, url };
-	let key = method.toLowerCase() === 'get' ? 'params' : 'data';
-	config[key] = data;
-
-	// return Auth.getAuthHeaders(ctx).then((headers) => {
-	const updatedHeaders = Object.assign({}, defaultHeaders, config.headers);
-	console.log({ updatedHeaders, defaultHeaders, config });
-
-	// Create Axios Config
-	axios.create(config);
-
-	// Add Headers to Config Object
-	config['headers'] = updatedHeaders;
-	return axios.request(config);
-};
-
 // Text search with location bias
 // https://maps.googleapis.com/maps/api/place/textsearch/json?query=123+madina+street&location=5.6364025,-0.1670703&radius=1000&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU
 
@@ -85,11 +47,13 @@ export const executeRequest = (
  * https://maps.googleapis.com/maps/api/place/autocomplete/json?input=nile&types=establishment&location=5.6364025,-0.1670703&strictbounds&radius=50000&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU
  */
 
-const baseURL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=5.6364025,-0.1670703&radius=10000&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU`;
+// const baseURL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=5.6364025,-0.1670703&radius=10000&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU`;
 
-export const defaultConfig = {
-	baseURL: baseURL,
-	headers: {
-		'X-Request-With': 'XMLHttpRequest'
-	}
-};
+// const baseURL =
+// 	'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU&location=5.6364025,-0.1670703&radius=10000&type=hospital';
+// export const defaultConfig = {
+// 	baseURL: baseURL,
+// 	headers: {
+// 		'X-Request-With': 'XMLHttpRequest'
+// 	}
+// };

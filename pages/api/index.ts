@@ -25,6 +25,7 @@ function runMiddleware(req, res, fn) {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
+
 	return new Promise((resolve, reject) => {
 		client
 			.placesNearby({

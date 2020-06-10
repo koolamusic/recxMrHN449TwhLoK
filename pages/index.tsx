@@ -1,105 +1,88 @@
+import React from 'react'
 import { GetServerSideProps } from 'next'
-import {
-  Form,
-  Select,
-  InputNumber,
-  DatePicker,
-  Switch,
-  Slider,
-  Button,
-} from 'antd'
-
+import { Input, Row, Col, Slider, Button, InputNumber } from 'antd'
+import './index.less'
 import MainLayout from '../layouts/main'
 
+class IntegerStep extends React.Component {
+    state = {
+        inputValue: 5,
+    };
+
+    onChange = value => {
+        this.setState({
+            inputValue: value,
+        });
+    };
+
+    render() {
+        const { inputValue } = this.state;
+        return (
+            <Row gutter={8}>
+                <Col span={12}>
+                    <Slider
+                        min={1}
+                        max={25}
+                        defaultValue={[0, 5]}
+                        onChange={this.onChange}
+                        value={typeof inputValue === 'number' ? inputValue : 0}
+                    />
+                </Col>
+                <Col span={4}>
+                    <InputNumber
+                        min={1}
+                        max={25}
+                        style={{ margin: '0 16px' }}
+                        value={inputValue}
+                        onChange={this.onChange}
+                    />
+                </Col>
+                <Col span={8}>
+                    <Button type="primary">Search</Button>
+                </Col>
+            </Row>
+        );
+    }
+}
 
 
-const FormItem = Form.Item
-const Option = Select.Option
 
-export default function Home({ stars }) {
-  return (
-    <MainLayout>
-      <Form layout="horizontal">
-        <FormItem
-          label="Input Number"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 8 }}
-        >
-          <InputNumber
-            size="large"
-            min={1}
-            max={10}
-            style={{ width: 100 }}
-            defaultValue={3}
-            name="inputNumber"
-          />
-          <a href="#">Link</a>
-        </FormItem>
-        return <div>Next stars: {JSON.stringify(stars)}</div>
 
-        <FormItem
-          label="Switch"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 8 }}
-        >
-          <Switch defaultChecked />
-        </FormItem>
+export default function Home({ data }) {
+    return (
+        <MainLayout>
+            <div style={{ marginTop: '10rem' }}></div>
+            <h1>Integrate your Google Account</h1>
+            {/* <h1>Find a {Hospital} Near you</h1> */}
 
-        <FormItem
-          label="Slider"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 8 }}
-        >
-          <Slider defaultValue={70} />
-        </FormItem>
+            {/* <h6>How many kilometers far should we search:</h6> */}
+            <Row>
+                <h6>Tell us how much distance to cover</h6>
+                <Col span={24}>
+                    {/* <Input placeholder="20 KM" /> */}
+                    <IntegerStep />
 
-        <FormItem
-          label="Select"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 8 }}
-        >
-          <Select size="large" defaultValue="lucy" style={{ width: 192 }}>
-            <Option value="jack">jack</Option>
-            <Option value="lucy">lucy</Option>
-            <Option value="disabled" disabled>
-              disabled
-            </Option>
-            <Option value="yiminghe">yiminghe</Option>
-          </Select>
-        </FormItem>
 
-        <FormItem
-          label="DatePicker"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 8 }}
-        >
-          <DatePicker name="startDate" />
-        </FormItem>
-        <FormItem style={{ marginTop: 48 }} wrapperCol={{ span: 8, offset: 8 }}>
-          <Button size="large" type="primary" htmlType="submit">
-            OK
-          </Button>
-          <Button size="large" style={{ marginLeft: 8 }}>
-            Cancel
-          </Button>
-        </FormItem>
-      </Form>
-    </MainLayout>
-  )
+                </Col>
+            </Row>
+        </MainLayout>
+
+    )
 }
 
 type Data = any
-export const getServerSideProps = async () => {
-  const res = await fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=5.6364025,-0.1670703&radius=10000&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU')
-  const stars: Data = await res.json()
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    console.log(ctx)
+    const res = await fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=5.6364025,-0.1670703&radius=10000&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU')
+    const data: Data = await res.json()
 
-  console.log(stars)
+    // console.log(data)
 
-  return {
-    props: {
-      stars
+    return {
+        props: {
+            data
+        }
     }
-  }
 
 }
 

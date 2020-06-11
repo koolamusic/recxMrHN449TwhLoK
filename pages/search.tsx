@@ -30,27 +30,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     // USE LINK
     const res: Data = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${query.lat},${query.lng}&radius=${query.radius}&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU`);
-    const stars = await res.json()
+    const places = await res.json()
 
-
-    const payload = await {
-        lat: query.lat,
-        lng: query.lng,
-        radius: query.radius
-    }
-    console.log(payload, "PAYLOAD HERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
-
-
-
-    // since the payload for the google api call is the same, we might as well just use it instead
-
-    // Make call to retrieve Nearby places based on user defined parameters
-    const nearby = await Places.list(payload)
-    // const data = await nearby.data
-
+    // const payload = await {
+    //     lat: query.lat,
+    //     lng: query.lng,
+    //     radius: query.radius
+    // }
+    // console.log(payload, "PAYLOAD HERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
     return {
         props: {
-            data: stars.results
+            data: places.results
         }
     }
 }

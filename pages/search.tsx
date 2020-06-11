@@ -1,7 +1,10 @@
+import dynamic from 'next/dynamic'
 import { GetServerSideProps } from 'next'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import MainLayout from '../layouts/main'
 import ResultCard from '../layouts/card'
+import './styles.less'
+import SearchField from '../layouts/searchfield'
 import Adapter from '../utils/api'
 
 
@@ -14,11 +17,21 @@ class Places extends Adapter.createResource('http://localhost:3000/api') { }
 
 
 const Search: React.FC<any> = ({ data }): JSX.Element => {
+    const [display, setdisplay] = useState(true);
+
+    // Effect to manage the display for card items
+    useEffect(() => {
+        data !== undefined || data !== null ? setdisplay(false) : setdisplay(true)
+    });
+
+
+
+
     console.log(data, "WE ==================")
     return (
         <MainLayout>
-            Search
-            <ResultCard data={data} />
+            <SearchField />
+            <ResultCard data={data} display={display} />
         </MainLayout>
     )
 }
@@ -37,7 +50,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     //     lng: query.lng,
     //     radius: query.radius
     // }
-    // console.log(payload, "PAYLOAD HERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
     return {
         props: {
             data: places.results

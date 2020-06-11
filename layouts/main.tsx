@@ -4,12 +4,8 @@ import Link from 'next/link'
 import { Layout } from 'antd'
 import('antd/lib/menu/style/index')
 import { Menu } from 'antd'
+import { TableOutlined, MenuFoldOutlined } from '@ant-design/icons'
 
-import {
-  SmileOutlined,
-  SettingOutlined,
-  PlaySquareOutlined,
-} from '@ant-design/icons'
 import { Route, MenuDataItem } from '@ant-design/pro-layout/lib/typings'
 
 // const MenuItem = dynamic(() => import('antd/lib/menu/MenuItem'))
@@ -23,40 +19,40 @@ const ROUTES: Route = {
     {
       path: '/',
       name: 'Home',
-      icon: <SmileOutlined />
+      icon: <TableOutlined />
     },
-        {
-          path: '/welcome',
-          name: 'Welcome',
-          icon: <SettingOutlined />,
-        },
-        {
-          path: '/antd',
-          name: 'Ant',
-          icon: <SettingOutlined />,
-        },
-    
-    
+    // {
+    //   path: '/welcome',
+    //   name: 'Welcome',
+    //   icon: <SettingOutlined />,
+    // },
+    // {
+    //   path: '/antd',
+    //   name: 'Ant',
+    //   icon: <SettingOutlined />,
+    // },
+
+
     {
       path: '/example',
       name: 'Example Page',
-      icon: <PlaySquareOutlined />,
+      icon: <MenuFoldOutlined />,
     },
   ],
 }
 
 const menuItemRender = () => (
-    ROUTES.routes.map((rt, idx) => {
-      return (
-        <MenuItem key={rt.path}>
+  ROUTES.routes.map((rt, idx) => {
+    return (
+      <MenuItem key={rt.path}>
         <Link href={rt.path}>
-        <a>{rt.name}</a>
+          <a>{rt.icon}</a>
         </Link>
-        </MenuItem>
+      </MenuItem>
 
-      )
-    })
-  
+    )
+  })
+
 )
 
 export default function Main({ children }) {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { GetServerSideProps } from 'next'
 import { Input, Row, Col, Slider, Button, InputNumber } from 'antd'
-import './index.less'
+import './styles.less'
 import MainLayout from '../layouts/main'
 import { getCurrentLocation, getLocationFromStorage } from '../utils/index'
 
@@ -18,23 +18,18 @@ export default function Home(): JSX.Element {
     const [schema, setSchema] = useState<ISchema>({})
     const router = useRouter()
 
-    fetch('/api').then((res) => {
-        res.json().then((data) => console.log(data)).catch(err => console.error(err))
-    })
-
-
     console.log("SCHEMA BOIZ /page/index L22", schema)
     // get users current location
 
     useEffect(() => {
-        getCurrentLocation().then((data: ISchema) => setSchema(data))
+        getCurrentLocation().then((data: ISchema) => setSchema(Object.assign(data, { radius: 5000 })))
         return () => {
         }
     }, [])
 
     const handlePersonalization = (): void => {
         router.push({
-            pathname: '/example',
+            pathname: '/search',
             query: { ...schema }
         })
     }
@@ -51,7 +46,7 @@ export default function Home(): JSX.Element {
 
     const onChange = value => {
         setInputValue(value)
-        setSchema(Object.assign(schema, { radius: value }))
+        setSchema(Object.assign(schema, { radius: value * 1000 }))
     };
 
     return (
@@ -68,7 +63,7 @@ export default function Home(): JSX.Element {
                         <Col span={12}>
                             <Slider
                                 min={1}
-                                max={25}
+                                max={20}
                                 defaultValue={[0, 5]}
                                 onChange={onChange}
                                 value={typeof inputValue === 'number' ? inputValue : 0}
@@ -83,7 +78,7 @@ export default function Home(): JSX.Element {
                                 onChange={onChange}
                             />
                         </Col>
-                        <Col span={3}>
+                        <Col span={6}>
                             <Button onClick={handlePersonalization} type="primary">Search</Button>
                         </Col>
                     </Row>

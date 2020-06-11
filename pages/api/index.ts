@@ -1,3 +1,5 @@
+import { LatLngArray } from './../../utils/common';
+import { PlacesNearbyRequest } from './lib/placesnearby';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
 
@@ -23,17 +25,39 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
+// interface IQuery extends NextApiRequest {
+// 	lat?: any;
+// 	lng?: any;
+// 	radius?: any;
+// 	[key: string]: any;
+// }
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
+
+	const { query, body }: any = await req;
+	// const data = JSON.parse(query);
+	// const { query: { lat, lng, radius } }: any = req;
+	// const LatLngArray: LatLngArray = await [ parseFloat(lat), parseFloat(lng) ];
+	// const bias: number = await parseFloat(radius);
+	console.log(
+		// req.query,
+		// query,
+		req.body,
+		'=============QUERY OBJ============================================================>>>>>>>>>>>>>>>>>>>>>>>>'
+	);
+	// res.json({ Me: 'Fore' });
 
 	return new Promise((resolve, reject) => {
 		client
 			.placesNearby({
 				params: {
-					location: { lat: 5.6364025, lng: -0.1670703 },
-					radius: 10000,
+					// location: LatLngArray,
+					// radius: bias,
+					// location: { lat, lng },
+					// radius: radius,
 					type: 'hospital',
-					key: 'AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU'
+					key: 'AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU',
+					...body
 				},
 				timeout: 1000 // milliseconds
 			})
@@ -49,9 +73,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 					resolve();
 				}
 			})
-			.catch((e) => {
-				console.log(e);
-				reject(e);
+			.catch((err) => {
+				console.log(err);
+				reject(err);
 			});
 	});
 };

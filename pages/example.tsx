@@ -4,21 +4,8 @@ import { GetServerSideProps } from 'next'
 import ResourceFactory from '../utils/api'
 
 
-const baseURL =
-  'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU&location=5.6364025,-0.1670703&radius=10000&type=hospital';
-export const defaultConfig = {
-  baseURL: baseURL,
-  headers: {
-    'X-Request-With': 'XMLHttpRequest'
-  }
-};
 
-
-
-
-ResourceFactory.updateDefaults(defaultConfig)
-
-class Api extends ResourceFactory.createResource('api') { }
+class Api extends ResourceFactory.createResource('http://localhost:3000/api') { }
 
 
 

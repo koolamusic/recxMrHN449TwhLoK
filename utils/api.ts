@@ -88,7 +88,7 @@ class ResourceFactory {
 				// const updatedHeaders = Object.assign({}, defaultConfig, config.headers);
 				//@ts-ignore
 				const updatedHeaders = Object.assign({}, this.config.headers);
-				console.log({ updatedHeaders, config }, 'buildUrl ==>', url); // ================ console.log file
+				// console.log({ updatedHeaders, config }, 'buildUrl ==>', url); // ================ console.log file
 
 				// Create Axios Config
 				// axios.create(config);
@@ -106,12 +106,16 @@ class ResourceFactory {
 			static get(data: any, ctx = {}) {
 				return this.executeRequest(data, '{id}', 'GET', ctx);
 			}
+
+			static save(data, pattern = '{id}', ctx = {}) {
+				// If there's an ID, switch from a create to an update method
+				return this.executeRequest(data, pattern, 'POST', ctx);
+			}
 		}
 
 		Resource.endpoint = endpoint;
 		Resource.config = { defaultConfig, ...config };
 		Resource.axios = axios.create(Resource.config);
-		console.log("I'd like to see", Resource.endpoint, Resource.config); // ========= console log file
 		return Resource;
 	}
 }

@@ -14,7 +14,7 @@ interface ISchema {
 
 
 export default function Home(): JSX.Element {
-    const [inputValue, setInputValue] = useState<number>(5);
+    const [inputValue, setInputValue] = useState<number>(2);
     const [schema, setSchema] = useState<ISchema>({})
     const router = useRouter()
 
@@ -22,7 +22,7 @@ export default function Home(): JSX.Element {
     // get users current location
 
     useEffect(() => {
-        getCurrentLocation().then((data: ISchema) => setSchema(Object.assign(data, { radius: 5000 })))
+        getCurrentLocation().then((data: ISchema) => setSchema(Object.assign(data, { radius: 200 })))
         return () => {
         }
     }, [])
@@ -46,7 +46,7 @@ export default function Home(): JSX.Element {
 
     const onChange = value => {
         setInputValue(value)
-        setSchema(Object.assign(schema, { radius: value * 1000 }))
+        setSchema(Object.assign(schema, { radius: value * 100 }))
     };
 
     return (
@@ -64,7 +64,7 @@ export default function Home(): JSX.Element {
                             <Slider
                                 min={1}
                                 max={20}
-                                defaultValue={[0, 5]}
+                                defaultValue={[0, 2]}
                                 onChange={onChange}
                                 value={typeof inputValue === 'number' ? inputValue : 0}
                             />
@@ -72,7 +72,7 @@ export default function Home(): JSX.Element {
                         <Col span={3}>
                             <InputNumber
                                 min={1}
-                                max={25}
+                                max={20}
                                 style={{ margin: '0 16px' }}
                                 value={inputValue}
                                 onChange={onChange}
@@ -87,22 +87,6 @@ export default function Home(): JSX.Element {
         </MainLayout>
 
     )
-}
-
-type Data = any
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    console.log(ctx)
-    const res = await fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=5.6364025,-0.1670703&radius=10000&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU')
-    const data: Data = await res.json()
-
-    // console.log(data)
-
-    return {
-        props: {
-            data
-        }
-    }
-
 }
 
 

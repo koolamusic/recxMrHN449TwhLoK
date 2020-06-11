@@ -13,47 +13,44 @@ class Places extends Adapter.createResource('http://localhost:3000/api') { }
 
 
 
-const Search: React.FC = ({ data }): JSX.Element => {
+const Search: React.FC<any> = ({ data }): JSX.Element => {
     console.log(data, "WE ==================")
     return (
         <MainLayout>
             Search
-            <ResultCard />
+            <ResultCard data={data} />
         </MainLayout>
     )
 }
+
+type Data = any
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const { query } = ctx
 
     // USE LINK
-    const res = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${query.lat},${query.lng}&radius=${query.radius}&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU`);
+    const res: Data = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${query.lat},${query.lng}&radius=${query.radius}&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU`);
     const stars = await res.json()
 
 
-
-
-
-
-
-
-
     const payload = await {
-        location: {
-            lat: query.lat,
-            lng: query.lng
-        },
+        lat: query.lat,
+        lng: query.lng,
         radius: query.radius
     }
-    console.log(payload, "HERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
+    console.log(payload, "PAYLOAD HERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
 
+
+
+    // since the payload for the google api call is the same, we might as well just use it instead
 
     // Make call to retrieve Nearby places based on user defined parameters
-    // const nearby = await Places.save(payload)
+    const nearby = await Places.list(payload)
     // const data = await nearby.data
+
     return {
         props: {
-            data: stars
+            data: stars.results
         }
     }
 }

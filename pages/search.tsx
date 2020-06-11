@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const { query } = ctx
 
     // USE LINK
-    const res: Data = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${query.lat},${query.lng}&radius=${query.radius}&type=hospital&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU`);
+    const res: Data = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${query.lat},${query.lng}&radius=${query.radius}&type=hospital&key=${process.env.GOOGLE_API_KEY}`);
     const places = await res.json()
 
     // const payload = await {

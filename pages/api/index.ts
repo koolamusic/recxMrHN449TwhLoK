@@ -55,10 +55,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 					// radius: radius,
 					location: { lat: 5.6364025, lng: -0.1670703 },
 					radius: bias,
-					// location: { lat: 5.6066047999999995, lng: -0.1867776 },
-					// radius: 5000,
 					type: 'hospital',
-					key: 'AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU'
+					key: process.env.GOOGLE_API_KEY
 				},
 				timeout: 1000 // milliseconds
 			})

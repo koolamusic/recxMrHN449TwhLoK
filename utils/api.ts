@@ -15,8 +15,6 @@ export const acceptEncoding = 'gzip';
 export const X_GOOG_MAPS_EXPERIENCE_ID = 'X-GOOG-MAPS-EXPERIENCE-ID';
 
 const baseURL = 'http://localhost:3000';
-// const bUrl =
-// 	'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU&location=5.6364025,-0.1670703&radius=10000&type=hospital';
 
 const defaultConfig: AxiosRequestConfig = {
 	baseURL: baseURL,

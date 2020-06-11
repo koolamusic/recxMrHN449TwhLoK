@@ -5,14 +5,13 @@ import { Input, Row, Col, Slider, Button, InputNumber } from 'antd'
 import { Typography } from 'antd'
 import './styles.less'
 import MainLayout from '../layouts/main'
-import { getCurrentLocation, getLocationFromStorage } from '../utils/index'
+import { getCurrentLocation } from '../utils/index'
 
 interface ISchema {
     lat?: number,
     lng?: number,
     radius?: number
 }
-
 const { Title } = Typography
 
 
@@ -23,8 +22,8 @@ export default function Home(): JSX.Element {
     const router = useRouter()
 
     console.log("SCHEMA BOIZ /page/index L22", schema)
-    // get users current location
 
+    // get users current location
     useEffect(() => {
         getCurrentLocation().then((data: ISchema) => setSchema(Object.assign(data, { radius: 2000 })))
         return () => {
@@ -38,15 +37,6 @@ export default function Home(): JSX.Element {
             query: { ...schema }
         })
     }
-
-
-
-    // const savedLocation: string | null = getLocationFromStorage()
-    // console.log("SAVE", savedLocation)
-    // latitude: 5.5836672
-    // longitude: -0.1769472
-    // altitude: null
-    // accuracy: 30041
 
 
     const onChange = value => {
@@ -92,7 +82,6 @@ export default function Home(): JSX.Element {
                 </Col>
             </Row>
         </MainLayout>
-
     )
 }
 

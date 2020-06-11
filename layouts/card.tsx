@@ -1,48 +1,33 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Avatar } from 'antd';
 import { Card } from 'antd';
 // import { Col } from 'antd'
+import { Rate } from 'antd'
 import { Row } from 'antd'
-import { Switch } from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { EditOutlined, PhoneTwoTone, EllipsisOutlined, PushpinFilled } from '@ant-design/icons';
 
 const { Meta } = Card;
 
 export default class ResultCard extends React.Component<any> {
-    state = {
-        loading: true,
-    };
-
-    onChange = checked => {
-        this.setState({ loading: !checked });
-    };
-
     render() {
-        const { loading } = this.state;
-        const { data } = this.props;
+        const { data, display } = this.props;
 
         return (
             <>
-                <Switch checked={!loading} onChange={this.onChange} />
-                <Row>
+                <Row justify="center">
                     {data.map((place, idx) => {
                         return (
 
                             <Card
-                                key={place.id}
-                                style={{ width: 300, margin: '.1rem' }}
-                                loading={loading}
+                                key={[place.id, place.place_id, idx].join('_')}
+                                style={{ minWidth: '320px', width: 320, margin: '.3rem', boxShadow: "11px 2px 21px rgba(0,0,0,0.031)", cursor: 'pointer' }}
+                                loading={display}
                                 actions={[
-                                    <SettingOutlined key="call" />,
-                                    <EditOutlined key="calendar" />,
-                                    <EllipsisOutlined key="text" />,
+                                    <PhoneTwoTone key="call" />,
+                                    <PushpinFilled key="pin" />,
+                                    <a target="_blank" href={`ttps://www.google.com/maps/place/details/@${place.geometry.location.lat},${place.geometry.location.lng}`}><EllipsisOutlined key="text" /></a>
                                 ]}
-                            // cover={
-                            //     <img
-                            //         alt="example"
-                            //         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                            //     />
-                            // }
+
                             >
                                 <Meta
                                     // avatar={
@@ -51,11 +36,17 @@ export default class ResultCard extends React.Component<any> {
                                     title={place.name}
                                     description={
                                         <>
+                                            <Rate disabled count={5} defaultValue={place.rating} />
                                             <p>{place.vicinity}</p>
-                                            <p>{JSON.stringify(place)}</p>
+                                            <h4>{place.types[0]}</h4>
+                                            <p>{place.plus_code.compound_code}</p>
+                                            <code>{Object.entries(place.geometry.location)}</code>
+                                            {/* <p>{JSON.stringify(place.opening_hours)}</p> */}
+                                            {/* <p>{JSON.stringify(place)}</p> */}
                                         </>
                                     }
                                 />
+
                             </Card>
                         )
                     })}

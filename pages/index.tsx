@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { GetServerSideProps } from 'next'
-import { Input, Row, Col, Slider, Button, InputNumber } from 'antd'
+import { Row, Col, Slider, Button, InputNumber } from 'antd'
 import { Typography } from 'antd'
 import './styles.less'
 import MainLayout from '../layouts/main'
 import { getCurrentLocation } from '../utils/location'
+import Block from '../layouts/block'
 
 interface ISchema {
     lat?: number,
@@ -78,6 +78,11 @@ export default function Home(): JSX.Element {
                         </Col>
                     </Row>
                 </Col>
+            </Row>
+
+            {/* ====== Embed Skeleton Blocks here ==== */}
+            <Row justify="space-between" style={{ marginTop: '5rem' }}>
+                <Block />
             </Row>
         </MainLayout>
     )

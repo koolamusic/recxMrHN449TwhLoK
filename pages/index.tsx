@@ -5,7 +5,7 @@ import { Input, Row, Col, Slider, Button, InputNumber } from 'antd'
 import { Typography } from 'antd'
 import './styles.less'
 import MainLayout from '../layouts/main'
-import { getCurrentLocation } from '../utils/index'
+import { getCurrentLocation } from '../utils/location'
 
 interface ISchema {
     lat?: number,

@@ -1,8 +1,9 @@
 import dynamic from 'next/dynamic'
 import { GetServerSideProps } from 'next'
+import Fuse from 'fuse.js'
 import React, { useState, useEffect } from 'react'
 import MainLayout from '../layouts/main'
-import ResultCard from '../layouts/card'
+import ResultCard, { ICardData } from '../layouts/card'
 import './styles.less'
 import SearchField from '../layouts/searchfield'
 import Adapter from '../utils/api'
@@ -12,7 +13,7 @@ import Adapter from '../utils/api'
  * Initiatialize resource for maps service
  */
 // Adapter.updateDefaults({ baseURL: 'http://localhost:3000' })
-class Places extends Adapter.createResource('http://localhost:3000/api') { }
+class Places extends Adapter.createResource('api') { }
 
 
 
@@ -23,6 +24,20 @@ const Search: React.FC<any> = ({ data }): JSX.Element => {
     useEffect(() => {
         data !== undefined || data !== null ? setdisplay(false) : setdisplay(true)
     });
+
+    // Initialize Fuse with the Options key for fuzzy search
+    const fuse = new Fuse(data, {
+        keys: ['name', 'vicinity', 'types'],
+        includeScore: true
+    })
+
+    const useFuse = async (): Promise<Array<ICardData>> => {
+        const result: ICardData | any = await fuse.search('police')
+        console.log("RESULTS L49", result)
+        return [result]
+    }
+    const result: Fuse.FuseResult<ICardData> | any = useFuse().then((data) => data)
+
 
 
 

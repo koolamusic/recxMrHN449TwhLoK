@@ -19,34 +19,35 @@ class Places extends Adapter.createResource('api') { }
 
 const Search: React.FC<any> = ({ data }): JSX.Element => {
     const [display, setdisplay] = useState(true);
+    const [query, setQuery] = useState('')
 
     // Effect to manage the display for card items
     useEffect(() => {
         data !== undefined || data !== null ? setdisplay(false) : setdisplay(true)
     });
 
-    // Initialize Fuse with the Options key for fuzzy search
-    const fuse = new Fuse(data, {
-        keys: ['name', 'vicinity', 'types'],
-        includeScore: true
-    })
 
-    const useFuse = async (): Promise<Array<ICardData>> => {
-        const result: ICardData | any = await fuse.search('police')
-        console.log("RESULTS L49", result)
-        return [result]
+    const useFuse = (value: string): React.SetStateAction<string> => {
+        console.log(value, 'FROM CONSOLE')
+        console.log(query, 'JUST AFTER VALUE FROM CONSLE')
+        setQuery(value)
+        return value
     }
-    const result: Fuse.FuseResult<ICardData> | any = useFuse().then((data) => data)
+    const handleChange = (value: string): string => {
+        setdisplay(true)
+        useFuse(value)
+
+        return value
+    }
+    // const result: Fuse.FuseResult<ICardData> | any = useFuse().then((data) => data)
 
 
-
-
-
+    console.log("DISPLA", display)
     console.log(data, "WE ==================")
     return (
         <MainLayout>
-            <SearchField />
-            <ResultCard data={data} display={display} />
+            <SearchField handleSearch={useFuse} handleChange={handleChange} />
+            <ResultCard data={data} display={display} query={query} />
         </MainLayout>
     )
 }

@@ -1,6 +1,5 @@
 import MainLayout from '../layouts/main'
 import useSWR from 'swr'
-import { GetServerSideProps } from 'next'
 import ResourceFactory from '../utils/api'
 
 
@@ -25,15 +24,3 @@ export default function Example() {
   if (!data) return <div>loading...</div>
   return <MainLayout>hello {JSON.stringify(data)}!</MainLayout>
 }
-
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//   const dump = await executeRequest('http://localhost:3000/api')
-//   console.log(dump)
-
-//   return {
-//     props: {
-//       dump
-//     }
-//   }
-
-// }

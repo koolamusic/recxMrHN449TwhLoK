@@ -21,8 +21,6 @@ export default function Home(): JSX.Element {
     const [loading, setLoading] = useState<boolean>(false);
     const router = useRouter()
 
-    console.log("SCHEMA BOIZ /page/index L22", schema)
-
     // get users current location
     useEffect(() => {
         getCurrentLocation().then((data: ISchema) => setSchema(Object.assign(data, { radius: 2000 })))

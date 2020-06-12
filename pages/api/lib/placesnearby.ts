@@ -25,7 +25,7 @@ import { defaultAxiosInstance } from './instance';
  * Configure proxy middleware
  */
 // const gMapsProxy = createProxyMiddleware('/places', {
-// 	target: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json&key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU',
+// 	target: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json&key=process.env.GOOGLE_API_KEY',
 // 	changeOrigin: true, // for vhosted sites, changes host header to match to target's host
 // 	logLevel: 'debug'
 // });
@@ -116,8 +116,8 @@ export interface PlacesNearbyResponse extends AxiosResponse {
 	data: PlacesNearbyResponseData;
 }
 
-export const defaultUrl =
-	'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU';
+export const defaultUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env
+	.GOOGLE_API_KEY}`;
 
 export const defaultParamsSerializer = serializer({ location: latLngToString });
 

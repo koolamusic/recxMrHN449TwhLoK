@@ -1,4 +1,18 @@
 /**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  * Manage connection to the API: aka axios: https://github.com/axios/axios/blob/b03f16159eac889baba067ff1e53e8701c86728e/index.d.ts
  */
 
@@ -15,8 +29,6 @@ export const acceptEncoding = 'gzip';
 export const X_GOOG_MAPS_EXPERIENCE_ID = 'X-GOOG-MAPS-EXPERIENCE-ID';
 
 const baseURL = 'http://localhost:3000';
-// const bUrl =
-// 	'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB01cSQiXTGE7IorUIw0nOQ_TbEXN5fpqU&location=5.6364025,-0.1670703&radius=10000&type=hospital';
 
 const defaultConfig: AxiosRequestConfig = {
 	baseURL: baseURL,

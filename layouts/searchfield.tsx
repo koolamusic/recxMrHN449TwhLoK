@@ -1,9 +1,13 @@
 import { Input } from 'antd';
 import { Row } from 'antd'
+import { ChangeEvent } from 'react';
 const { Search } = Input;
 
-
-const SearchField: React.FC = (): JSX.Element => {
+interface ISearchField {
+    handleSearch: (value: ChangeEvent<HTMLInputElement> | string) => {},
+    handleChange: (value: ChangeEvent<HTMLInputElement> | string) => {}
+}
+const SearchField: React.FC<ISearchField> = ({ handleSearch, handleChange }): JSX.Element => {
     return (
         <Row style={{
             width: '100vw',
@@ -18,8 +22,10 @@ const SearchField: React.FC = (): JSX.Element => {
 
             <Search
                 placeholder="Search for a Hospital"
-                // style={{ maxWidth: 300 }}
-                onSearch={value => console.log(value)}
+                style={{ maxWidth: '77%' }}
+                onChange={e => handleChange(e.target.value)}
+                onSearch={value => handleSearch(value)}
+                allowClear
                 enterButton />
         </Row>
     )

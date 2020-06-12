@@ -33,11 +33,11 @@ const ROUTES: Route = {
     // },
 
 
-    {
-      path: '/example',
-      name: 'Example Page',
-      icon: <MenuFoldOutlined />,
-    },
+    // {
+    //   path: '/example',
+    //   name: 'Example Page',
+    //   icon: <MenuFoldOutlined />,
+    // },
   ],
 }
 
